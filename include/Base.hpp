@@ -1,5 +1,6 @@
 #ifndef BASE_HPP
 #define BASE_HPP
+#include <utility>
 #include <algorithm>
 #include <boost/asio.hpp>
 #include <boost/asio/awaitable.hpp>
@@ -18,7 +19,6 @@
 #include <memory>
 #include <string>
 #include <thread>
-#include <utility>
 #include <vector>
 
 
