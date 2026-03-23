@@ -1,3 +1,0 @@
-/Volumes/Development/C++ Projects/AsyncWebServer/build/Release/CMakeFiles/AsyncWebServer.dir
-/Volumes/Development/C++ Projects/AsyncWebServer/build/Release/CMakeFiles/edit_cache.dir
-/Volumes/Development/C++ Projects/AsyncWebServer/build/Release/CMakeFiles/rebuild_cache.dir

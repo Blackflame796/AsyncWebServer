@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/Volumes/Development/C++ Projects/AsyncWebServer/build",
-  "command": "/usr/bin/clang++ -I\"/Volumes/Development/C++ Projects/AsyncWebServer/include\" -isystem /opt/homebrew/include -g -std=gnu++20 -arch arm64 -o CMakeFiles/AsyncWebServer.dir/src/Server.cpp.o -c \"/Volumes/Development/C++ Projects/AsyncWebServer/src/Server.cpp\"",
-  "file": "/Volumes/Development/C++ Projects/AsyncWebServer/src/Server.cpp",
-  "output": "/Volumes/Development/C++ Projects/AsyncWebServer/build/CMakeFiles/AsyncWebServer.dir/src/Server.cpp.o"
-}
-]
