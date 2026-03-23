@@ -9,8 +9,14 @@ public:
   HttpRequest(http::request<http::string_body> req) : req_(std::move(req)) {}
 
   http::verb method() const { return req_.method(); }
-  std::string_view method_string() const { return req_.method_string(); }
-  std::string_view target() const { return req_.target(); }
+  std::string_view method_string() const {
+    auto s = req_.method_string();
+    return std::string_view{s.data(), s.size()};
+  }
+  std::string_view target() const {
+    auto t = req_.target();
+    return std::string_view{t.data(), t.size()};
+  }
   const std::string &body() const { return req_.body(); }
   std::string &body() { return req_.body(); }
 

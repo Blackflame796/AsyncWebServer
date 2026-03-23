@@ -12,7 +12,9 @@ public:
   void body(std::string b) { res_.body() = std::move(b); }
   const std::string &body() const { return res_.body(); }
 
-  void set(http::field f, std::string_view v) { res_.set(f, v); }
+  void set(http::field f, std::string_view v) {
+    res_.set(f, boost::beast::string_view{v.data(), v.size()});
+  }
 
   void prepare_payload() { res_.prepare_payload(); }
   void keep_alive(bool k) { res_.keep_alive(k); }
