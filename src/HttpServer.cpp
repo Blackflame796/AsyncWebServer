@@ -18,17 +18,28 @@ HttpServer::HttpServer() {
 net::awaitable<void> HttpServer::handle_client(HttpContext ctx) {
   beast::flat_buffer buffer;
   try {
-    co_await http::async_read(ctx.socket, buffer, ctx.request.base(),
-                              net::use_awaitable);
+    // Set TCP_NODELAY to disable Nagle's algorithm and reduce latency
+    ctx.socket.set_option(tcp::no_delay(true));
 
-    co_await middleware->next(ctx);
+    for (;;) {
+      // Clear the request/response for the next iteration
+      ctx.request = HttpRequest();
+      ctx.response = HttpResponse();
 
-    co_await http::async_write(ctx.socket, ctx.response.base(),
-                               net::use_awaitable);
+      co_await http::async_read(ctx.socket, buffer, ctx.request.base(),
+                                net::use_awaitable);
 
-    if (!ctx.response.keep_alive()) {
-      ctx.socket.shutdown(tcp::socket::shutdown_send);
+      co_await middleware->next(ctx);
+
+      co_await http::async_write(ctx.socket, ctx.response.base(),
+                                 net::use_awaitable);
+
+      if (!ctx.response.keep_alive()) {
+        break;
+      }
     }
+
+    ctx.socket.shutdown(tcp::socket::shutdown_send);
   } catch (const boost::system::system_error &e) {
     if (e.code() != http::error::end_of_stream) {
       std::cerr << "System error in handle_client: " << e.what() << std::endl;
